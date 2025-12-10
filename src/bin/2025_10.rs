@@ -96,7 +96,7 @@ fn fewest_presses_for_joltage(row: &Row) -> isize {
         // Compute the bound variables and check the sum of the solution
         if bound_vars.iter().enumerate().all(|(row_idx, &var_idx)| {
             let coeff = mat[row_idx][var_idx];
-            let rhs = mat[row_idx][n_vars] - (var_idx + 1 .. n_vars).map(|v| mat[row_idx][v] * values[v]).sum::<isize>();
+            let rhs = mat[row_idx][n_vars] - free_vars.iter().map(|&v| mat[row_idx][v] * values[v]).sum::<isize>();
             if rhs.signum() == -coeff.signum() || rhs % coeff != 0 {
                 false
             } else {
