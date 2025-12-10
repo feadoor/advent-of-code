@@ -9,7 +9,7 @@ use std::usize;
 struct Row {
     indicators: usize,
     bitfields: Vec<usize>,
-    joltage_reqs: Vec<usize>,
+    joltage_reqs: Vec<isize>,
 }
 
 impl Row {
@@ -48,7 +48,7 @@ fn fewest_presses_for_joltage(row: &Row) -> isize {
                 mat[eq_idx][var_idx] = 1;
             }
         }
-        mat[eq_idx][n_vars] = row.joltage_reqs[eq_idx] as isize;
+        mat[eq_idx][n_vars] = row.joltage_reqs[eq_idx];
     }
 
     // Perform Gaussian elimination as far as possible on the system
@@ -77,7 +77,7 @@ fn fewest_presses_for_joltage(row: &Row) -> isize {
     let maximum_values = free_vars.iter().map(|&var_idx| 
         (0 .. n_eqs)
             .filter(|&eq_idx| (row.bitfields[var_idx] & (1 << eq_idx)) != 0)
-            .map(|eq_idx| row.joltage_reqs[eq_idx] as isize)
+            .map(|eq_idx| row.joltage_reqs[eq_idx])
             .min().unwrap()
     ).collect_vec();
 
@@ -97,7 +97,7 @@ fn fewest_presses_for_joltage(row: &Row) -> isize {
         if bound_vars.iter().enumerate().all(|(row_idx, &var_idx)| {
             let coeff = mat[row_idx][var_idx];
             let rhs = mat[row_idx][n_vars] - (var_idx + 1 .. n_vars).map(|v| mat[row_idx][v] * values[v]).sum::<isize>();
-            if rhs % coeff != 0 || rhs.signum() == -coeff.signum() {
+            if rhs.signum() == -coeff.signum() || rhs % coeff != 0 {
                 false
             } else {
                 values[var_idx] = rhs / coeff;
@@ -107,8 +107,8 @@ fn fewest_presses_for_joltage(row: &Row) -> isize {
             best_sum = min(best_sum, values.into_iter().sum());
         }
 
-        // Move on to the next assignment of free variables, bearing in mind the best bound currently known 
-        // both on each variable individually and on their sum
+        // Move on to the next assignment of free variables, bearing in mind the best
+        // bounds currently known both on each variable individually and on their sum
         while !current_free_vals.is_empty() && (current_sum >= best_sum || current_free_vals[current_free_vals.len() - 1] == maximum_values[current_free_vals.len() - 1]) {
             current_sum -= current_free_vals.pop().unwrap();
         }
