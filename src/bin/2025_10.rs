@@ -84,37 +84,33 @@ fn fewest_presses_for_joltage(row: &Row) -> isize {
     // For each assignment to the free variables, find the full solution arising from this
     // assignment and check if its sum is smaller than the best known sum
     let mut best_sum = isize::MAX;
-    let (mut current_sum, mut current_free_vals) = (0, vec![0; free_vars.len()]);
+    let (mut free_sum, mut free_vals) = (0, vec![0; free_vars.len()]);
     loop {
 
-        // Set the free variables
-        let mut values = vec![0; n_vars];
-        for (&var_idx, &value) in free_vars.iter().zip(current_free_vals.iter()) {
-            values[var_idx] = value;
-        }
-
-        // Compute the bound variables and check the sum of the solution
+        // Compute the bound variables and check that the sum of the solution doesn't
+        // exceed the minimum sum found so far for any solution
+        let mut total_sum = free_sum;
         if bound_vars.iter().enumerate().all(|(row_idx, &var_idx)| {
             let coeff = mat[row_idx][var_idx];
-            let rhs = mat[row_idx][n_vars] - free_vars.iter().map(|&v| mat[row_idx][v] * values[v]).sum::<isize>();
+            let rhs = mat[row_idx][n_vars] - free_vars.iter().enumerate().map(|(i, &v)| mat[row_idx][v] * free_vals[i]).sum::<isize>();
             if rhs.signum() == -coeff.signum() || rhs % coeff != 0 {
                 false
             } else {
-                values[var_idx] = rhs / coeff;
-                true
+                total_sum += rhs / coeff;
+                total_sum < best_sum
             }
         }) {
-            best_sum = min(best_sum, values.into_iter().sum());
+            best_sum = total_sum;
         }
 
         // Move on to the next assignment of free variables, bearing in mind the best
         // bounds currently known both on each variable individually and on their sum
-        while !current_free_vals.is_empty() && (current_sum >= best_sum || current_free_vals[current_free_vals.len() - 1] == maximum_values[current_free_vals.len() - 1]) {
-            current_sum -= current_free_vals.pop().unwrap();
+        while !free_vals.is_empty() && (free_sum >= best_sum || free_vals[free_vals.len() - 1] == maximum_values[free_vals.len() - 1]) {
+            free_sum -= free_vals.pop().unwrap();
         }
-        if let Some(val) = current_free_vals.last_mut() {
-            *val += 1; current_sum += 1;
-            current_free_vals.extend(repeat_n(0, free_vars.len() - current_free_vals.len()));
+        if let Some(val) = free_vals.last_mut() {
+            *val += 1; free_sum += 1;
+            free_vals.extend(repeat_n(0, free_vars.len() - free_vals.len()));
         } else {
             break;
         }
