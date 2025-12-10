@@ -1,6 +1,5 @@
 use itertools::Itertools;
 use regex::Regex;
-use std::cmp::min;
 use std::iter::repeat_n;
 use std::sync::LazyLock;
 use std::time::Instant;
