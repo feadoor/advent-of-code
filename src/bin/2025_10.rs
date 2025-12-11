@@ -1,3 +1,4 @@
+use advent_of_code::math::gcd;
 use itertools::Itertools;
 use regex::Regex;
 use std::iter::repeat_n;
@@ -24,10 +25,6 @@ impl Row {
             joltage_reqs: captures["joltage"].split(",").map(|n| n.parse().unwrap()).collect(),
         }
     }
-}
-
-fn gcd(x: isize, y: isize) -> isize {
-    if y == 0 { x } else { gcd(y, x % y) }
 }
 
 fn fewest_presses_for_indicators(row: &Row) -> usize {
