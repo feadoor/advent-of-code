@@ -1,3 +1,4 @@
+pub mod dag;
 pub mod dfs;
 pub mod grid;
 pub mod linked_list;
