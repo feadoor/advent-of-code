@@ -9,14 +9,14 @@ fn is_match(c1: char, c2: char) -> bool {
 fn reacted_length(polymer: &str) -> usize {
     let mut list = LinkedList::from(polymer.chars());
     let mut curr = list.head();
-    while let Some((left, right)) = curr.zip(curr.and_then(|it| list.next(it))) {
-        let (c1, c2) = (*list.val(left), *list.val(right));
+    while let Some((left, right)) = curr.and_then(|it| list.next(&it).map(|next| (it, next))) {
+        let (c1, c2) = (*list.val(&left), *list.val(&right));
         if is_match(c1, c2) {
+            curr = list.prev(&left).or(list.next(&right));
             list.remove(left);
             list.remove(right);
-            curr = list.prev(left).or(list.next(left));
         } else {
-            curr = list.next(left);
+            curr = list.next(&left);
         }
     }
     list.len()

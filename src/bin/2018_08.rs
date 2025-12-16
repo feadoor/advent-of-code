@@ -19,7 +19,7 @@ impl Node {
 
     fn value(&self) -> usize {
         match self.children.len() {
-            0 => self.sum_of_metadata(),
+            0 => self.metadata.iter().sum(),
             _ => self.metadata.iter().filter_map(|&idx| self.children.get(idx - 1).map(|child| child.value())).sum(),
         }
     }
