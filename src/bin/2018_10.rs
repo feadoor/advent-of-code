@@ -25,19 +25,19 @@ fn size_after_ticks(points: &[Point], ticks: isize) -> isize {
     (max_x - min_x) * (max_y - min_y)
 }
 
+fn parse_input() -> Vec<Point> {
+    include_str!("../../inputs/2018/10.txt").lines()
+        .map(|line| line.split(|c: char| !c.is_numeric() && c != '-').filter_map(|s| s.parse().ok()).collect_tuple().unwrap())
+        .map(|(a, b, c, d)| Point { position: (a, b), velocity: (c, d) })
+        .collect()
+}
+
 fn ticks_for_smallest_bounding_box(points: &[Point]) -> isize {
     let starting_size = size_after_ticks(points, 0);
     let jump_size = iterate(1, |x| 2 * x).skip_while(|&x| size_after_ticks(points, x) < starting_size).next().unwrap();
     iterate(jump_size, |x| x / 2).take_while(|&x| x > 0).fold(0, |ticks, jump| {
         if size_after_ticks(points, ticks + jump) < size_after_ticks(points, ticks + jump - 1) { ticks + jump } else { ticks }
     })
-}
-
-fn parse_input() -> Vec<Point> {
-    include_str!("../../inputs/2018/10.txt").lines()
-        .map(|line| line.split(|c: char| !c.is_numeric() && c != '-').filter_map(|s| s.parse().ok()).collect_tuple().unwrap())
-        .map(|(a, b, c, d)| Point { position: (a, b), velocity: (c, d) })
-        .collect()
 }
 
 fn find_message(points: &[Point], ticks: isize) -> String {
