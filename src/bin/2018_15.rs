@@ -117,7 +117,7 @@ fn part2(grid: &Vec<Vec<char>>) -> usize {
             battlefield.perform_round();
             rounds += 1;
         }
-        battlefield.combat_finished().then(|| battlefield.total_hp_remaining() * (rounds - 1))
+        (battlefield.combat_finished() && battlefield.count_elves() == elves).then(|| battlefield.total_hp_remaining() * (rounds - 1))
     }).next().unwrap()
 }
 
