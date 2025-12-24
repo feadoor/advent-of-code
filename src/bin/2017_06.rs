@@ -1,5 +1,6 @@
 use itertools::Itertools;
-use std::{collections::HashMap, time::Instant};
+use std::collections::HashMap;
+use std::time::Instant;
 
 fn find_first_repeat(mut data: Vec<usize>) -> (usize, usize) {
     let mut seen = HashMap::new();

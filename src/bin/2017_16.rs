@@ -1,5 +1,6 @@
 use itertools::Itertools;
-use std::{collections::HashMap, time::Instant};
+use std::collections::HashMap;
+use std::time::Instant;
 
 #[derive(Copy, Clone)]
 enum Move {

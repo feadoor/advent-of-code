@@ -1,5 +1,6 @@
 use itertools::{Itertools, iterate};
-use std::{collections::VecDeque, time::Instant};
+use std::collections::VecDeque;
+use std::time::Instant;
 
 struct RecipeIterator {
     recipes: Vec<usize>,

@@ -1,5 +1,7 @@
 use itertools::Itertools;
-use std::{cmp::max, collections::HashMap, time::Instant};
+use std::cmp::max;
+use std::collections::HashMap;
+use std::time::Instant;
 
 enum Condition {
     Gt(String, isize),
