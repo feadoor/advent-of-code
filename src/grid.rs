@@ -56,6 +56,15 @@ pub fn make_move<I: PrimInt>((y, x): (I, I), direction: Direction) -> (I, I) {
     }
 }
 
+pub fn four_neighbours_half_open((r, c): (usize, usize)) -> Vec<(usize, usize)> {
+    let mut res = Vec::new();
+    if r > 0 { res.push((r - 1, c)); }
+    if c > 0 { res.push((r, c - 1)); }
+    res.push((r + 1, c));
+    res.push((r, c + 1));
+    res
+}
+
 pub fn four_neighbours<T>((r, c): (usize, usize), grid: &Vec<Vec<T>>) -> Vec<(usize, usize)> {
     let mut res = Vec::new();
     if r > 0 { res.push((r - 1, c)); }
