@@ -1,3 +1,4 @@
+use advent_of_code::grid::{Direction, make_move};
 use itertools::Itertools;
 use std::collections::HashMap;
 use std::time::Instant;
@@ -10,52 +11,6 @@ enum CellState {
     Flagged,
 }
 
-#[derive(Copy, Clone)]
-enum Direction {
-    Up,
-    Down,
-    Left,
-    Right,
-}
-
-impl Direction {
-    fn delta(&self) -> (isize, isize) {
-        match self {
-            Self::Up => (-1, 0),
-            Self::Down => (1, 0),
-            Self::Left => (0, -1),
-            Self::Right => (0, 1),
-        }
-    }
-
-    fn turn_right(&self) -> Self {
-        match self {
-            Self::Up => Self::Right,
-            Self::Right => Self::Down,
-            Self::Down => Self::Left,
-            Self::Left => Self::Up,
-        }
-    }
-
-    fn turn_left(&self) -> Self {
-        match self {
-            Self::Up => Self::Left,
-            Self::Left => Self::Down,
-            Self::Down => Self::Right,
-            Self::Right => Self::Up,
-        }
-    }
-
-    fn reverse(&self) -> Self {
-        match self {
-            Self::Up => Self::Down,
-            Self::Down => Self::Up,
-            Self::Left => Self::Right,
-            Self::Right => Self::Left,
-        }
-    }
-}
-
 fn step_part1(position: &mut (isize, isize), direction: &mut Direction, cells: &mut HashMap<(isize, isize), CellState>, ) -> CellState {
     let current_state = *cells.entry(*position).or_insert(CellState::Clean);
     let new_state = match current_state {
@@ -65,7 +20,7 @@ fn step_part1(position: &mut (isize, isize), direction: &mut Direction, cells: &
     };
 
     cells.insert(*position, new_state);
-    *position = (position.0 + direction.delta().0, position.1 + direction.delta().1);
+    *position = make_move(*position, *direction);
 
     new_state
 }
@@ -80,7 +35,7 @@ fn step_part2(position: &mut (isize, isize), direction: &mut Direction, cells: &
     };
 
     cells.insert(*position, new_state);
-    *position = (position.0 + direction.delta().0, position.1 + direction.delta().1);
+    *position = make_move(*position, *direction);
 
     new_state
 }

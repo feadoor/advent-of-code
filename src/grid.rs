@@ -1,3 +1,61 @@
+use num_traits::PrimInt;
+
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
+pub enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+impl Direction {
+    pub fn from_compass_point(c: char) -> Self {
+        match c {
+            'N' => Self::Up,
+            'E' => Self::Right,
+            'S' => Self::Down,
+            'W' => Self::Left,
+            _ => panic!("Unknown direction {}", c),
+        }
+    }
+    
+    pub fn turn_right(&self) -> Self {
+        match self {
+            Self::Up => Self::Right,
+            Self::Right => Self::Down,
+            Self::Down => Self::Left,
+            Self::Left => Self::Up,
+        }
+    }
+
+    pub fn turn_left(&self) -> Self {
+        match self {
+            Self::Up => Self::Left,
+            Self::Left => Self::Down,
+            Self::Down => Self::Right,
+            Self::Right => Self::Up,
+        }
+    }
+
+    pub fn reverse(&self) -> Self {
+        match self {
+            Self::Up => Self::Down,
+            Self::Down => Self::Up,
+            Self::Left => Self::Right,
+            Self::Right => Self::Left,
+        }
+    }
+}
+
+pub fn make_move<I: PrimInt>((y, x): (I, I), direction: Direction) -> (I, I) {
+    match direction {
+        Direction::Up => (y - I::one(), x),
+        Direction::Down => (y + I::one(), x),
+        Direction::Left => (y, x - I::one()),
+        Direction::Right => (y, x + I::one()),
+    }
+}
+
 pub fn four_neighbours<T>((r, c): (usize, usize), grid: &Vec<Vec<T>>) -> Vec<(usize, usize)> {
     let mut res = Vec::new();
     if r > 0 { res.push((r - 1, c)); }

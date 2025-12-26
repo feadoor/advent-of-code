@@ -183,6 +183,18 @@ name = "2018_18"
 path = "src/bin/2018/18.rs"
 
 [[bin]]
+name = "2018_19"
+path = "src/bin/2018/19.rs"
+
+[[bin]]
+name = "2018_20"
+path = "src/bin/2018/20.rs"
+
+[[bin]]
+name = "2018_21"
+path = "src/bin/2018/21.rs"
+
+[[bin]]
 name = "2025_01"
 path = "src/bin/2025/01.rs"
 

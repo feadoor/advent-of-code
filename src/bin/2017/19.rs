@@ -1,32 +1,5 @@
+use advent_of_code::grid::{Direction, make_move};
 use std::time::Instant;
-
-#[derive(Clone, Copy, PartialEq, Eq)]
-enum Direction {
-    Up,
-    Down,
-    Left,
-    Right
-}
-
-impl Direction {
-    fn opposite(&self) -> Direction {
-        match self {
-            Self::Up => Self::Down,
-            Self::Down => Self::Up,
-            Self::Left => Self::Right,
-            Self::Right => Self::Left,
-        }
-    }
-}
-
-fn make_move((y, x): (usize, usize), direction: Direction) -> (usize, usize) {
-    match direction {
-        Direction::Up => (y - 1, x),
-        Direction::Down => (y + 1, x),
-        Direction::Left => (y, x - 1),
-        Direction::Right => (y, x + 1),
-    }
-}
 
 fn is_in_path((y, x): (usize, usize), diagram: &Vec<Vec<char>>) -> bool {
     y < diagram.len() && x < diagram[y].len() && diagram[y][x] != ' '
@@ -47,7 +20,7 @@ fn follow_diagram(diagram: &Vec<Vec<char>>) -> (String, usize) {
         steps += 1;
         if diagram[y][x] == '+' {
             direction = [Direction::Up, Direction::Down, Direction::Left, Direction::Right].into_iter()
-                .find(|&d| d != direction.opposite() && is_in_path(make_move((y, x), d), diagram))
+                .find(|&d| d != direction.reverse() && is_in_path(make_move((y, x), d), diagram))
                 .unwrap_or(direction);
         } else if diagram[y][x].is_alphabetic() {
             letters.push(diagram[y][x]);

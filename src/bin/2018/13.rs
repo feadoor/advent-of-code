@@ -1,14 +1,7 @@
+use advent_of_code::grid::{Direction, make_move};
 use itertools::Itertools;
 use std::collections::BTreeMap;
 use std::time::Instant;
-
-#[derive(Copy, Clone, PartialEq, Eq, Hash)]
-enum Direction {
-    Up,
-    Left,
-    Down,
-    Right,
-}
 
 #[derive(Copy, Clone, PartialEq, Eq, Hash)]
 enum TurnBehaviour {
@@ -51,29 +44,10 @@ impl Cart {
     }
 }
 
-fn next_coords((row, col): (usize, usize), direction: Direction) -> (usize, usize) {
-    match direction {
-        Direction::Up => (row - 1, col),
-        Direction::Left => (row, col - 1),
-        Direction::Down => (row + 1, col),
-        Direction::Right => (row, col + 1),
-    }
-}
-
 fn turn(direction: Direction, turn_behaviour: TurnBehaviour) -> Direction {
     match turn_behaviour {
-        TurnBehaviour::TurnLeft => match direction {
-            Direction::Up => Direction::Left,
-            Direction::Left => Direction::Down,
-            Direction::Down => Direction::Right,
-            Direction::Right => Direction::Up,
-        },
-        TurnBehaviour::TurnRight => match direction {
-            Direction::Up => Direction::Right,
-            Direction::Left => Direction::Up,
-            Direction::Down => Direction::Left,
-            Direction::Right => Direction::Down,
-        },
+        TurnBehaviour::TurnLeft => direction.turn_left(),
+        TurnBehaviour::TurnRight => direction.turn_right(),
         TurnBehaviour::GoStraight => direction,
     }
 }
@@ -101,7 +75,7 @@ fn tick(map: &Vec<Vec<char>>, carts: &mut BTreeMap<(usize, usize), Cart>) -> Opt
     let current_carts = carts.keys().copied().collect_vec();
     current_carts.into_iter().map(|(row, col)| {
         carts.remove(&(row, col)).and_then(|cart| {
-            let (next_row, next_col) = next_coords((row, col), cart.direction);
+            let (next_row, next_col) = make_move((row, col), cart.direction);
             if carts.remove(&(next_row, next_col)).is_some() {
                 Some((next_col, next_row))
             } else {

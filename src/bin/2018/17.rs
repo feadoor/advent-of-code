@@ -21,8 +21,7 @@ fn parse_line(line: &str) -> ((isize, isize), (isize, isize)) {
 
 fn is_free(map: &HashMap<(isize, isize), State>, (y, x): (isize, isize)) -> bool {
     match map.get(&(y, x)).unwrap_or(&State::Sand) {
-        State::Sand    => true,
-        State::Reached => true,
+        State::Sand | State::Reached => true,
         _ => false,
     }
 }
