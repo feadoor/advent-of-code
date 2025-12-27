@@ -71,6 +71,6 @@ fn main() {
     let elapsed_time = start_time.elapsed();
 
     println!("Part 1: {}", part1_ans);
-    println!("Part 2: {}", "Congratulations");
+    println!("Part 2: {}", "Congratulations!");
     println!("Elapsed: {:?}", elapsed_time);
 }
