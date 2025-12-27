@@ -211,6 +211,14 @@ name = "2018_25"
 path = "src/bin/2018/25.rs"
 
 [[bin]]
+name = "2019_01"
+path = "src/bin/2019/01.rs"
+
+[[bin]]
+name = "2019_02"
+path = "src/bin/2019/02.rs"
+
+[[bin]]
 name = "2025_01"
 path = "src/bin/2025/01.rs"
 
