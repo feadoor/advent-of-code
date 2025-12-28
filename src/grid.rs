@@ -9,6 +9,16 @@ pub enum Direction {
 }
 
 impl Direction {
+    pub fn from_direction_char(c: char) -> Self {
+        match c {
+            'U' => Self::Up,
+            'D' => Self::Down,
+            'L' => Self::Left,
+            'R' => Self::Right,
+            _ => panic!("Unknown direction {}", c),
+        }
+    }
+
     pub fn from_compass_point(c: char) -> Self {
         match c {
             'N' => Self::Up,
