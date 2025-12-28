@@ -1,28 +1,24 @@
 use advent_of_code::intcode::{IntcodeInterrupt, IntcodeRunner};
-use itertools::iproduct;
 use std::time::Instant;
 
 fn parse_input() -> Vec<isize> {
-    include_str!("../../../inputs/2019/02.txt").trim().split(",")
+    include_str!("../../../inputs/2019/05.txt").trim().split(",")
         .map(|s| s.parse().unwrap())
         .collect()
 }
 
-fn part1(mut program: Vec<isize>) -> isize {
-    program[1] = 12; program[2] = 2;
+fn part1(program: Vec<isize>) -> isize {
     let mut runner = IntcodeRunner::for_program(program);
+    runner.push_input(1);
     assert!(matches!(runner.run(), IntcodeInterrupt::Halt));
-    runner.get(0)
+    *runner.outputs.back().unwrap()
 }
 
 fn part2(program: Vec<isize>) -> isize {
-    iproduct!(0 .. 100, 0 .. 100).find(|&(noun, verb)| {
-        let mut program = program.clone();
-        program[1] = noun; program[2] = verb;
-        let mut runner = IntcodeRunner::for_program(program);
-        assert!(matches!(runner.run(), IntcodeInterrupt::Halt));
-        runner.get(0) == 19690720
-    }).map(|(noun, verb)| 100 * noun + verb).unwrap()
+    let mut runner = IntcodeRunner::for_program(program);
+    runner.push_input(5);
+    assert!(matches!(runner.run(), IntcodeInterrupt::Halt));
+    *runner.outputs.back().unwrap()
 }
 
 fn main() {
