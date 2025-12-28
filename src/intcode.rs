@@ -39,6 +39,14 @@ impl IntcodeRunner {
         self.inputs.push_back(input);
     }
 
+    pub fn pop_output(&mut self) -> Option<isize> {
+        self.outputs.pop_front()
+    }
+
+    pub fn last_output(&self) -> Option<isize> {
+        self.outputs.back().copied()
+    }
+
     fn read(&mut self) -> isize {
         self.pc += 1;
         self.get(self.pc - 1)
@@ -99,6 +107,7 @@ impl IntcodeRunner {
             self.write(dst, input);
             None
         } else {
+            self.pc -= 1;
             Some(IntcodeInterrupt::NeedsInput)
         }
     }
@@ -133,6 +142,11 @@ impl IntcodeRunner {
         None
     }
 
+    fn opcode99<I: Iterator<Item = isize>>(&mut self, modes: &mut I) -> Option<IntcodeInterrupt> {
+        self.pc -= 1;
+        Some(IntcodeInterrupt::Halt)
+    }
+
     fn step(&mut self) -> Option<IntcodeInterrupt> {
         let (opcode, mut modes) = self.load_opcode();
         match opcode {
@@ -144,7 +158,7 @@ impl IntcodeRunner {
             6 => self.opcode6(&mut modes),
             7 => self.opcode7(&mut modes),
             8 => self.opcode8(&mut modes),
-            99 => Some(IntcodeInterrupt::Halt),
+            99 => self.opcode99(&mut modes),
             x => panic!("Unexpected opcode {}", x),
         }
     }
