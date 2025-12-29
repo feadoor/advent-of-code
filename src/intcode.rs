@@ -4,6 +4,7 @@ use std::collections::VecDeque;
 pub struct IntcodeRunner {
     program: IntcodeMemory,
     pc: usize,
+    relative_base: isize,
     inputs: VecDeque<isize>,
     pub outputs: VecDeque<isize>,
 }
@@ -18,6 +19,7 @@ impl IntcodeRunner {
         Self {
             program: IntcodeMemory(program),
             pc: 0,
+            relative_base: 0,
             inputs: VecDeque::new(),
             outputs: VecDeque::new(),
         }
@@ -67,6 +69,7 @@ impl IntcodeRunner {
         match mode {
             0 => self.load_position(),
             1 => self.load_immediate(),
+            2 => self.load_relative(),
             _ => panic!("Unknown mode {}", mode),
         }
     }
@@ -75,6 +78,7 @@ impl IntcodeRunner {
         let mode = modes.next().unwrap_or(0);
         let addr = match mode {
             0 => self.read(),
+            2 => self.read() + self.relative_base,
             _ => panic!("Unexpected mode for destination param: {}", mode),
         };
         assert!(addr >= 0); addr as usize
@@ -87,6 +91,11 @@ impl IntcodeRunner {
 
     fn load_immediate(&mut self) -> isize {
         self.read()
+    }
+
+    fn load_relative(&mut self) -> isize {
+        let addr = self.read() + self.relative_base; assert!(addr >= 0);
+        self.get(addr as usize)
     }
 
     fn opcode1<I: Iterator<Item = isize>>(&mut self, modes: &mut I) -> Option<IntcodeInterrupt> {
@@ -142,7 +151,13 @@ impl IntcodeRunner {
         None
     }
 
-    fn opcode99<I: Iterator<Item = isize>>(&mut self, modes: &mut I) -> Option<IntcodeInterrupt> {
+    fn opcode9<I: Iterator<Item = isize>>(&mut self, modes: &mut I) -> Option<IntcodeInterrupt> {
+        let arg1 = self.load_param(modes);
+        self.relative_base += arg1;
+        None
+    }
+
+    fn opcode99(&mut self) -> Option<IntcodeInterrupt> {
         self.pc -= 1;
         Some(IntcodeInterrupt::Halt)
     }
@@ -158,7 +173,8 @@ impl IntcodeRunner {
             6 => self.opcode6(&mut modes),
             7 => self.opcode7(&mut modes),
             8 => self.opcode8(&mut modes),
-            99 => self.opcode99(&mut modes),
+            9 => self.opcode9(&mut modes),
+            99 => self.opcode99(),
             x => panic!("Unexpected opcode {}", x),
         }
     }
