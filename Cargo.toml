@@ -7,6 +7,7 @@ edition = "2024"
 counter = "0.7.0"
 itertools = "0.14.0"
 num-traits = "0.2.19"
+ordered-float = "5.1.0"
 regex = "1.12.2"
 
 
@@ -245,6 +246,10 @@ path = "src/bin/2019/08.rs"
 [[bin]]
 name = "2019_09"
 path = "src/bin/2019/09.rs"
+
+[[bin]]
+name = "2019_10"
+path = "src/bin/2019/10.rs"
 
 [[bin]]
 name = "2025_01"
