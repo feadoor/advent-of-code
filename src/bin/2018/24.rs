@@ -5,7 +5,7 @@ use std::collections::HashMap;
 use std::sync::LazyLock;
 use std::time::Instant;
 
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 struct Group {
     units: usize,
     hp: usize,

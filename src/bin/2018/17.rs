@@ -2,7 +2,7 @@ use itertools::{Itertools, iproduct, iterate};
 use std::collections::HashMap;
 use std::time::Instant;
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash)]
 enum State {
     Sand,
     Clay,

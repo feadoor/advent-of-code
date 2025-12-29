@@ -6,3 +6,7 @@ pub fn gcd<T: PrimInt>(mut x: T, mut y: T) -> T {
     }
     x
 }
+
+pub fn lcm<T: PrimInt>(x: T, y: T) -> T {
+    x * (y / gcd(x, y))
+}
