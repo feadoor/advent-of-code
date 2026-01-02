@@ -1,6 +1,6 @@
 use num_traits::PrimInt;
 
-#[derive(Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub enum Direction {
     Up,
     Down,
@@ -9,6 +9,16 @@ pub enum Direction {
 }
 
 impl Direction {
+    pub fn from_arrow_char(c: char) -> Self {
+        match c {
+            '^' => Self::Up,
+            'v' => Self::Up,
+            '<' => Self::Up,
+            '>' => Self::Up,
+            _ => panic!("Unknown direction {}", c),
+        }
+    }
+
     pub fn from_direction_char(c: char) -> Self {
         match c {
             'U' => Self::Up,

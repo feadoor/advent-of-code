@@ -1,4 +1,5 @@
 use itertools::{Itertools, iterate};
+use std::iter::repeat_n;
 use std::time::Instant;
 
 fn fft(input: &Vec<isize>, offset: usize) -> Vec<isize> {
@@ -9,12 +10,6 @@ fn fft(input: &Vec<isize>, offset: usize) -> Vec<isize> {
         let total: isize = (n - 1 ..= input.len() + offset + 3 * n).step_by(n).tuples().map(|(k1, k2, k3, k4)| segment(k1 - offset, k2 - offset) - segment(k3 - offset, k4 - offset)).sum();
         total.abs() % 10
     }).collect()
-}
-
-fn repeat_n_times(input: &Vec<isize>, n: usize) -> Vec<isize> {
-    let mut result = Vec::with_capacity(n * input.len());
-    for _ in 0 .. n { result.extend_from_slice(input); }
-    result
 }
 
 fn parse_input() -> Vec<isize> {
@@ -28,8 +23,7 @@ fn part1(input: &Vec<isize>) -> isize {
 
 fn part2(input: &Vec<isize>) -> isize {
     let offset = input.iter().copied().take(7).reduce(|a, b| 10 * a + b).unwrap() as usize;
-    let mut multi_input = repeat_n_times(input, 10_000);
-    multi_input.drain(0 .. offset);
+    let multi_input = repeat_n(input.iter().copied(), 10_000).flatten().skip(offset).collect();
     let transformed = iterate(multi_input, |x| fft(x, offset)).nth(100).unwrap();
     transformed.into_iter().take(8).reduce(|a, b| 10 * a + b).unwrap()
 }
