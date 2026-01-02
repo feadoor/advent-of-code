@@ -1,11 +1,18 @@
+use std::collections::HashSet;
+
 pub struct UnionFind {
     nodes: Vec<UnionFindNode>,
+    representatives: HashSet<usize>,
     size: usize,
 }
 
 impl UnionFind {
     pub fn new(size: usize) -> Self {
-        Self { nodes: (0..size).map(UnionFindNode::new_at_index).collect(), size }
+        Self { 
+            nodes: (0..size).map(UnionFindNode::new_at_index).collect(),
+            representatives: (0..size).collect(),
+            size
+        }
     }
 
     pub fn len(&self) -> usize {
@@ -17,7 +24,7 @@ impl UnionFind {
     }
 
     pub fn all_set_sizes(&self) -> impl Iterator<Item = usize> {
-        self.nodes.iter().enumerate().filter(|&(idx, n)| n.parent == idx).map(|(_, n)| n.size)
+        self.representatives.iter().map(|&idx| self.nodes[idx].size)
     }
 
     pub fn merge(&mut self, a: usize, b: usize) {
@@ -27,9 +34,11 @@ impl UnionFind {
                 if self.nodes[a_rep].rank < self.nodes[b_rep].rank {
                     self.set_parent(a_rep, b_rep);
                     self.nodes[b_rep].size += self.nodes[a_rep].size;
+                    self.representatives.remove(&a_rep);
                 } else {
                     self.set_parent(b_rep, a_rep);
                     self.nodes[a_rep].size += self.nodes[b_rep].size;
+                    self.representatives.remove(&b_rep);
                     if self.nodes[a_rep].rank == self.nodes[b_rep].rank {
                         self.nodes[a_rep].rank += 1;
                     }
