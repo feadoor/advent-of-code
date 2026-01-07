@@ -24,7 +24,7 @@ bot state ef = case ef of
     Output (ball', Output(_, Output(4, ef')))     -> bot state { ball = Just ball' } ef'
 
     Output (_, Output (_, Output(_, ef'))) -> bot state ef'
-    _                                          -> error "Outputs should come in threes!"
+    _                                      -> error "Outputs should come in threes!"
 
 readInput :: IO Memory
 readInput = parse parseMemory <$> rawInput

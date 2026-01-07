@@ -112,3 +112,10 @@ executable 2019_13
     build-depends:    advent-of-code, base, containers
     hs-source-dirs:   bin
     default-language: Haskell2010
+
+executable 2019_14
+    import:           warnings
+    main-is:          2019/14.hs
+    build-depends:    advent-of-code, base, containers, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010

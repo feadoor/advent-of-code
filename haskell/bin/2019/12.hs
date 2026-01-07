@@ -33,7 +33,7 @@ period' :: [Moon] -> Maybe Int
 period' moons = fmap (1 +) $ elemIndex moons $ drop 1 $ iterate step moons
 
 period :: [Moon] -> Maybe Int
-period moons = foldl1 (liftA2 lcm) periods
+period moons = foldr1 (liftA2 lcm) periods
     where periods = map period' . transpose . map flattened $ moons
 
 parseCoordinate :: Parser Int
