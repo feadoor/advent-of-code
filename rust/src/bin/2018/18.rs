@@ -1,5 +1,5 @@
 use advent_of_code::grid::eight_neighbours;
-use counter::Counter;
+use itertools::Itertools;
 use std::collections::HashMap; 
 use std::time::Instant;
 
@@ -23,7 +23,7 @@ impl State {
 
 fn tick(diagram: &Vec<Vec<State>>) -> Vec<Vec<State>> {
     diagram.iter().enumerate().map(|(y, row)| row.iter().enumerate().map(|(x, state)| {
-        let nbr_counts: Counter<_> = eight_neighbours((y, x), diagram).into_iter().map(|(b, a)| diagram[b][a]).collect();
+        let nbr_counts = eight_neighbours((y, x), diagram).into_iter().map(|(b, a)| diagram[b][a]).counts();
         match state {
             State::Open => if *nbr_counts.get(&State::Tree).unwrap_or(&0) >= 3 { State::Tree } else { State::Open },
             State::Tree => if *nbr_counts.get(&State::Lumberyard).unwrap_or(&0) >= 3 { State::Lumberyard } else { State::Tree },
@@ -50,7 +50,7 @@ fn state_after(n: usize, diagram: &Vec<Vec<State>>) -> Vec<Vec<State>> {
 }
 
 fn score(diagram: &Vec<Vec<State>>) -> usize {
-    let counts: Counter<_> = diagram.iter().flatten().collect();
+    let counts = diagram.iter().flatten().counts();
     counts[&State::Lumberyard] * counts[&State::Tree]
 }
 

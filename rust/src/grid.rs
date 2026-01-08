@@ -76,6 +76,15 @@ pub fn make_move<I: PrimInt>((y, x): (I, I), direction: Direction) -> (I, I) {
     }
 }
 
+pub fn four_neighbours_hw((r, c): (usize, usize), h: usize, w: usize) -> Vec<(usize, usize)> {
+    let mut res = Vec::new();
+    if r > 0 { res.push((r - 1, c)); }
+    if c > 0 { res.push((r, c - 1)); }
+    if c < w - 1 { res.push((r, c + 1)); }
+    if r < h - 1 { res.push((r + 1, c)); }
+    res
+}
+
 pub fn four_neighbours_half_open((r, c): (usize, usize)) -> Vec<(usize, usize)> {
     let mut res = Vec::new();
     if r > 0 { res.push((r - 1, c)); }

@@ -1,4 +1,5 @@
-use std::collections::VecDeque;
+use std::collections::{HashSet, VecDeque};
+use std::hash::Hash;
 
 pub struct InterleaveAll<I> {
     iters: VecDeque<I>
@@ -31,3 +32,16 @@ pub trait InterleaveAllExt : Iterator + Sized {
 }
 
 impl<I: Iterator> InterleaveAllExt for I {}
+
+pub trait FirstDuplicateExt : Iterator + Sized {
+    fn first_duplicate(mut self) -> Option<Self::Item> where Self::Item: Eq + Hash {
+        let mut items = HashSet::new();
+        while let Some(item) = self.next() {
+            if items.contains(&item) { return Some(item); }
+            else { items.insert(item); }
+        }
+        None
+    }
+}
+
+impl<I: Iterator> FirstDuplicateExt for I {}

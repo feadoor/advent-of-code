@@ -41,6 +41,10 @@ impl IntcodeRunner {
         self.inputs.push_back(input);
     }
 
+    pub fn push_inputs<I: IntoIterator<Item = isize>>(&mut self, inputs: I) {
+        self.inputs.extend(inputs.into_iter())
+    }
+
     pub fn pop_output(&mut self) -> Option<isize> {
         self.outputs.pop_front()
     }

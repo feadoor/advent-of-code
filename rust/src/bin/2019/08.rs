@@ -1,4 +1,3 @@
-use counter::Counter;
 use itertools::Itertools;
 use std::time::Instant;
 
@@ -22,7 +21,7 @@ fn parse_input() -> Vec<Vec<Vec<usize>>> {
 }
 
 fn part1(layers: &Vec<Vec<Vec<usize>>>) -> usize {
-    let counts = layers.iter().map(|layer| layer.iter().flatten().collect::<Counter<_>>())
+    let counts = layers.iter().map(|layer| layer.iter().flatten().counts())
         .min_by_key(|counts| counts[&0])
         .unwrap();
     counts[&1] * counts[&2]

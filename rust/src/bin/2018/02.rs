@@ -1,4 +1,3 @@
-use counter::Counter;
 use itertools::Itertools;
 use std::time::Instant;
 
@@ -8,7 +7,7 @@ fn parse_input() -> &'static str {
 
 fn part1(boxes: &str) -> usize {
     let (doubles, triples) = boxes.lines().fold((0, 0), |(doubles, triples), box_name| {
-        let counts: Counter<_> = box_name.chars().collect();
+        let counts = box_name.chars().counts();
         let doubles = if counts.values().contains(&2) { doubles + 1 } else { doubles };
         let triples = if counts.values().contains(&3) { triples + 1 } else { triples };
         (doubles, triples)

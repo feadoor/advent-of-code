@@ -6,7 +6,6 @@ version = 4
 name = "advent-of-code"
 version = "0.1.0"
 dependencies = [
- "counter",
  "itertools",
  "num-traits",
  "ordered-float",
@@ -27,15 +26,6 @@ name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
-
-[[package]]
-name = "counter"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "337a5b3c62043f6a4f5331bdb467a7f7a2099dce8522bcded6d4ebda1214fa4c"
-dependencies = [
- "num-traits",
-]
 
 [[package]]
 name = "either"
