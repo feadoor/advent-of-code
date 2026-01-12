@@ -1,0 +1,121 @@
+cabal-version:      3.0
+name:               advent-of-code
+version:            0.1.0.0
+license:            NONE
+author:             Sam Cappleman-Lynes
+maintainer:         sam.capplemanlynes@gmail.com
+build-type:         Simple
+
+common warnings
+    ghc-options: -Wall
+
+library
+    import:           warnings
+    exposed-modules:  Advent,
+                      Advent.CyclicEnum,
+                      Advent.Grid,
+                      Advent.Intcode,
+                      Advent.Parsing,
+    build-depends:    base ^>=4.18.3.0,
+                      containers ^>= 0.7,
+                      megaparsec ^>=9.7.0
+    hs-source-dirs:   lib
+    default-language: Haskell2010
+
+executable 2019_01
+    import:           warnings
+    main-is:          2019/01.hs
+    build-depends:    advent-of-code, base
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_02
+    import:           warnings
+    main-is:          2019/02.hs
+    build-depends:    advent-of-code, base, containers
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_03
+    import:           warnings
+    main-is:          2019/03.hs
+    build-depends:    advent-of-code, base, containers, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_04
+    import:           warnings
+    main-is:          2019/04.hs
+    build-depends:    advent-of-code, base, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_05
+    import:           warnings
+    main-is:          2019/05.hs
+    build-depends:    advent-of-code, base
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_06
+    import:           warnings
+    main-is:          2019/06.hs
+    build-depends:    advent-of-code, base, containers, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_07
+    import:           warnings
+    main-is:          2019/07.hs
+    build-depends:    advent-of-code, base
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_08
+    import:           warnings
+    main-is:          2019/08.hs
+    build-depends:    advent-of-code, base, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_09
+    import:           warnings
+    main-is:          2019/09.hs
+    build-depends:    advent-of-code, base, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_10
+    import:           warnings
+    main-is:          2019/10.hs
+    build-depends:    advent-of-code, base, containers, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_11
+    import:           warnings
+    main-is:          2019/11.hs
+    build-depends:    advent-of-code, base, containers
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_12
+    import:           warnings
+    main-is:          2019/12.hs
+    build-depends:    advent-of-code, base, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_13
+    import:           warnings
+    main-is:          2019/13.hs
+    build-depends:    advent-of-code, base, containers
+    hs-source-dirs:   bin
+    default-language: Haskell2010
+
+executable 2019_14
+    import:           warnings
+    main-is:          2019/14.hs
+    build-depends:    advent-of-code, base, containers, megaparsec
+    hs-source-dirs:   bin
+    default-language: Haskell2010

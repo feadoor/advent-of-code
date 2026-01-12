@@ -1,0 +1,403 @@
+[package]
+name = "advent-of-code"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+itertools = "0.14.0"
+num-traits = "0.2.19"
+ordered-float = "5.1.0"
+regex = "1.12.2"
+
+
+[[bin]]
+name = "2017_01"
+path = "src/bin/2017/01.rs"
+
+[[bin]]
+name = "2017_02"
+path = "src/bin/2017/02.rs"
+
+[[bin]]
+name = "2017_03"
+path = "src/bin/2017/03.rs"
+
+[[bin]]
+name = "2017_04"
+path = "src/bin/2017/04.rs"
+
+[[bin]]
+name = "2017_05"
+path = "src/bin/2017/05.rs"
+
+[[bin]]
+name = "2017_06"
+path = "src/bin/2017/06.rs"
+
+[[bin]]
+name = "2017_07"
+path = "src/bin/2017/07.rs"
+
+[[bin]]
+name = "2017_08"
+path = "src/bin/2017/08.rs"
+
+[[bin]]
+name = "2017_09"
+path = "src/bin/2017/09.rs"
+
+[[bin]]
+name = "2017_10"
+path = "src/bin/2017/10.rs"
+
+[[bin]]
+name = "2017_11"
+path = "src/bin/2017/11.rs"
+
+[[bin]]
+name = "2017_12"
+path = "src/bin/2017/12.rs"
+
+[[bin]]
+name = "2017_13"
+path = "src/bin/2017/13.rs"
+
+[[bin]]
+name = "2017_14"
+path = "src/bin/2017/14.rs"
+
+[[bin]]
+name = "2017_15"
+path = "src/bin/2017/15.rs"
+
+[[bin]]
+name = "2017_16"
+path = "src/bin/2017/16.rs"
+
+[[bin]]
+name = "2017_17"
+path = "src/bin/2017/17.rs"
+
+[[bin]]
+name = "2017_18"
+path = "src/bin/2017/18.rs"
+
+[[bin]]
+name = "2017_19"
+path = "src/bin/2017/19.rs"
+
+[[bin]]
+name = "2017_20"
+path = "src/bin/2017/20.rs"
+
+[[bin]]
+name = "2017_21"
+path = "src/bin/2017/21.rs"
+
+[[bin]]
+name = "2017_22"
+path = "src/bin/2017/22.rs"
+
+[[bin]]
+name = "2017_23"
+path = "src/bin/2017/23.rs"
+
+[[bin]]
+name = "2017_24"
+path = "src/bin/2017/24.rs"
+
+[[bin]]
+name = "2017_25"
+path = "src/bin/2017/25.rs"
+
+[[bin]]
+name = "2018_01"
+path = "src/bin/2018/01.rs"
+
+[[bin]]
+name = "2018_02"
+path = "src/bin/2018/02.rs"
+
+[[bin]]
+name = "2018_03"
+path = "src/bin/2018/03.rs"
+
+[[bin]]
+name = "2018_04"
+path = "src/bin/2018/04.rs"
+
+[[bin]]
+name = "2018_05"
+path = "src/bin/2018/05.rs"
+
+[[bin]]
+name = "2018_06"
+path = "src/bin/2018/06.rs"
+
+[[bin]]
+name = "2018_07"
+path = "src/bin/2018/07.rs"
+
+[[bin]]
+name = "2018_08"
+path = "src/bin/2018/08.rs"
+
+[[bin]]
+name = "2018_09"
+path = "src/bin/2018/09.rs"
+
+[[bin]]
+name = "2018_10"
+path = "src/bin/2018/10.rs"
+
+[[bin]]
+name = "2018_11"
+path = "src/bin/2018/11.rs"
+
+[[bin]]
+name = "2018_12"
+path = "src/bin/2018/12.rs"
+
+[[bin]]
+name = "2018_13"
+path = "src/bin/2018/13.rs"
+
+[[bin]]
+name = "2018_14"
+path = "src/bin/2018/14.rs"
+
+[[bin]]
+name = "2018_15"
+path = "src/bin/2018/15.rs"
+
+[[bin]]
+name = "2018_16"
+path = "src/bin/2018/16.rs"
+
+[[bin]]
+name = "2018_17"
+path = "src/bin/2018/17.rs"
+
+[[bin]]
+name = "2018_18"
+path = "src/bin/2018/18.rs"
+
+[[bin]]
+name = "2018_19"
+path = "src/bin/2018/19.rs"
+
+[[bin]]
+name = "2018_20"
+path = "src/bin/2018/20.rs"
+
+[[bin]]
+name = "2018_21"
+path = "src/bin/2018/21.rs"
+
+[[bin]]
+name = "2018_22"
+path = "src/bin/2018/22.rs"
+
+[[bin]]
+name = "2018_23"
+path = "src/bin/2018/23.rs"
+
+[[bin]]
+name = "2018_24"
+path = "src/bin/2018/24.rs"
+
+[[bin]]
+name = "2018_25"
+path = "src/bin/2018/25.rs"
+
+[[bin]]
+name = "2019_01"
+path = "src/bin/2019/01.rs"
+
+[[bin]]
+name = "2019_02"
+path = "src/bin/2019/02.rs"
+
+[[bin]]
+name = "2019_03"
+path = "src/bin/2019/03.rs"
+
+[[bin]]
+name = "2019_04"
+path = "src/bin/2019/04.rs"
+
+[[bin]]
+name = "2019_05"
+path = "src/bin/2019/05.rs"
+
+[[bin]]
+name = "2019_06"
+path = "src/bin/2019/06.rs"
+
+[[bin]]
+name = "2019_07"
+path = "src/bin/2019/07.rs"
+
+[[bin]]
+name = "2019_08"
+path = "src/bin/2019/08.rs"
+
+[[bin]]
+name = "2019_09"
+path = "src/bin/2019/09.rs"
+
+[[bin]]
+name = "2019_10"
+path = "src/bin/2019/10.rs"
+
+[[bin]]
+name = "2019_11"
+path = "src/bin/2019/11.rs"
+
+[[bin]]
+name = "2019_12"
+path = "src/bin/2019/12.rs"
+
+[[bin]]
+name = "2019_13"
+path = "src/bin/2019/13.rs"
+
+[[bin]]
+name = "2019_14"
+path = "src/bin/2019/14.rs"
+
+[[bin]]
+name = "2019_15"
+path = "src/bin/2019/15.rs"
+
+[[bin]]
+name = "2019_16"
+path = "src/bin/2019/16.rs"
+
+[[bin]]
+name = "2019_17"
+path = "src/bin/2019/17.rs"
+
+[[bin]]
+name = "2019_18"
+path = "src/bin/2019/18.rs"
+
+[[bin]]
+name = "2019_19"
+path = "src/bin/2019/19.rs"
+
+[[bin]]
+name = "2019_20"
+path = "src/bin/2019/20.rs"
+
+[[bin]]
+name = "2019_21"
+path = "src/bin/2019/21.rs"
+
+[[bin]]
+name = "2019_22"
+path = "src/bin/2019/22.rs"
+
+[[bin]]
+name = "2019_23"
+path = "src/bin/2019/23.rs"
+
+[[bin]]
+name = "2019_24"
+path = "src/bin/2019/24.rs"
+
+[[bin]]
+name = "2019_25"
+path = "src/bin/2019/25.rs"
+
+[[bin]]
+name = "2020_01"
+path = "src/bin/2020/01.rs"
+
+[[bin]]
+name = "2020_02"
+path = "src/bin/2020/02.rs"
+
+[[bin]]
+name = "2020_03"
+path = "src/bin/2020/03.rs"
+
+[[bin]]
+name = "2020_04"
+path = "src/bin/2020/04.rs"
+
+[[bin]]
+name = "2020_05"
+path = "src/bin/2020/05.rs"
+
+[[bin]]
+name = "2020_06"
+path = "src/bin/2020/06.rs"
+
+[[bin]]
+name = "2020_07"
+path = "src/bin/2020/07.rs"
+
+[[bin]]
+name = "2020_08"
+path = "src/bin/2020/08.rs"
+
+[[bin]]
+name = "2020_09"
+path = "src/bin/2020/09.rs"
+
+[[bin]]
+name = "2020_10"
+path = "src/bin/2020/10.rs"
+
+[[bin]]
+name = "2020_11"
+path = "src/bin/2020/11.rs"
+
+[[bin]]
+name = "2025_01"
+path = "src/bin/2025/01.rs"
+
+[[bin]]
+name = "2025_02"
+path = "src/bin/2025/02.rs"
+
+[[bin]]
+name = "2025_03"
+path = "src/bin/2025/03.rs"
+
+[[bin]]
+name = "2025_04"
+path = "src/bin/2025/04.rs"
+
+[[bin]]
+name = "2025_05"
+path = "src/bin/2025/05.rs"
+
+[[bin]]
+name = "2025_06"
+path = "src/bin/2025/06.rs"
+
+[[bin]]
+name = "2025_07"
+path = "src/bin/2025/07.rs"
+
+[[bin]]
+name = "2025_08"
+path = "src/bin/2025/08.rs"
+
+[[bin]]
+name = "2025_09"
+path = "src/bin/2025/09.rs"
+
+[[bin]]
+name = "2025_10"
+path = "src/bin/2025/10.rs"
+
+[[bin]]
+name = "2025_11"
+path = "src/bin/2025/11.rs"
+
+[[bin]]
+name = "2025_12"
+path = "src/bin/2025/12.rs"

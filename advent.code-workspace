@@ -1,0 +1,16 @@
+{
+    "folders": [
+        {
+            "name": "inputs",
+            "path": "inputs"
+        },
+        {
+            "name": "rust",
+            "path": "rust"
+        },
+        {
+            "name": "haskell",
+            "path": "haskell"
+        }
+    ],
+}
