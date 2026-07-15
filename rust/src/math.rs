@@ -73,7 +73,26 @@ pub fn mod_pow<T: PrimInt>(base: T, mut exp: T, m: T) -> T {
     answer
 }
 
-pub fn mod_inv<T: PrimInt>(x: T, m: T) -> T {
-    // Assumes that m is prime!
-    mod_pow(x, m - T::one() - T::one(), m)
+pub fn mod_inv<T: PrimInt>(x: T, m: T) -> Option<T> {
+    let (mut u1, mut u3) = (T::one(), x);
+    let (mut v1, mut v3) = (T::zero(), m);
+    let mut odd_iterations = false;
+
+    while !v3.is_zero() {
+        let q = u3 / v3;
+        u1 = u1 + q * v1;
+        u3 = u3 - q * v3;
+        swap(&mut u1, &mut v1);
+        swap(&mut u3, &mut v3);
+        odd_iterations = !odd_iterations;
+    }
+
+    if u3.is_one() { if odd_iterations { Some(m - u1) } else { Some(u1) } } 
+    else { None }
+}
+
+pub fn chinese_remainder<T: PrimInt>((a, r): (T, T), (b, s): (T, T)) -> Option<(T, T)> {
+    mod_inv(s, r).and_then(|s_inv| mod_inv(r, s).map(|r_inv| {
+        (mod_add(s * mod_mul(a, s_inv, r), r * mod_mul(b, r_inv, s), r * s), r * s)
+    }))
 }

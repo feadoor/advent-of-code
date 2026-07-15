@@ -76,6 +76,15 @@ pub fn make_move<I: PrimInt>((y, x): (I, I), direction: Direction) -> (I, I) {
     }
 }
 
+pub fn make_long_move<I: PrimInt>((y, x): (I, I), amt: I, direction: Direction) -> (I, I) {
+    match direction {
+        Direction::Up => (y - amt, x),
+        Direction::Down => (y + amt, x),
+        Direction::Left => (y, x - amt),
+        Direction::Right => (y, x + amt),
+    }
+}
+
 pub fn four_neighbours_hw((r, c): (usize, usize), h: usize, w: usize) -> Vec<(usize, usize)> {
     let mut res = Vec::new();
     if r > 0 { res.push((r - 1, c)); }

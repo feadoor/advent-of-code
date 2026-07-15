@@ -64,7 +64,7 @@ fn apply<const M: usize>(affine: Affine<M>, card: usize) -> usize {
 
 fn invert<const M: usize>(affine: Affine<M>, position: usize) -> usize {
     let Affine { mul, shift } = affine;
-    mod_mul(mod_sub(position, shift, M), mod_inv(mul, M), M)
+    mod_mul(mod_sub(position, shift, M), mod_inv(mul, M).unwrap(), M)
 }
 
 fn shuffle<const M: usize>(instructions: &[Instruction]) -> Affine<M> {
