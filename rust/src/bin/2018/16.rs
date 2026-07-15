@@ -1,3 +1,4 @@
+use advent_of_code::matching::find_unique_matching;
 use itertools::Itertools;
 use std::collections::HashSet;
 use std::time::Instant;
@@ -67,37 +68,22 @@ fn matches(example: &Example, instruction: Instruction) -> bool {
     example.after == execute(instruction, &example.operation.args, &example.before)
 }
 
-fn matching_instructions(example: &Example) -> impl Iterator<Item = Instruction> {
-    ALL_INSTRUCTIONS.iter().copied().filter(|&it| matches(example, it))
+fn matching_instructions(example: &Example) -> impl Iterator<Item = usize> {
+    ALL_INSTRUCTIONS.iter().copied().enumerate().filter_map(|(idx, instr)| matches(example, instr).then_some(idx))
 }
 
-fn possible_assignments(examples: &[Example]) -> Vec<HashSet<Instruction>> {
-    let mut result = vec![ALL_INSTRUCTIONS.iter().copied().collect(); ALL_INSTRUCTIONS.len()];
+fn possible_assignments(examples: &[Example]) -> Vec<HashSet<usize>> {
+    let mut result = vec![(0 .. ALL_INSTRUCTIONS.len()).collect(); ALL_INSTRUCTIONS.len()];
     examples.iter().for_each(|example| {
         result[example.operation.opcode] = &result[example.operation.opcode] & &matching_instructions(example).collect()
     });
     result
 }
 
-fn find_naked_single(assignments: &[HashSet<Instruction>]) -> Option<(usize, Instruction)> {
-    assignments.iter().position(|it| it.len() == 1).map(|idx| (idx, assignments[idx].iter().copied().exactly_one().ok().unwrap()))
-}
-
-fn find_hidden_single(assignments: &[HashSet<Instruction>]) -> Option<(usize, Instruction)> {
-    ALL_INSTRUCTIONS.iter().copied().filter_map(|instr|
-        (0 .. assignments.len()).filter(|&idx| assignments[idx].contains(&instr)).exactly_one().ok().map(|idx| (idx, instr))
-    ).next()
-}
-
 fn solve_assignments(examples: &[Example]) -> Vec<Instruction> {
     let mut possible_assignments = possible_assignments(examples);
-    let mut final_assignments = vec![None; ALL_INSTRUCTIONS.len()];
-    for _ in 0 .. ALL_INSTRUCTIONS.len() {
-        let (idx, instr) = find_naked_single(&possible_assignments).or_else(|| find_hidden_single(&possible_assignments)).unwrap();
-        final_assignments[idx] = Some(instr);
-        possible_assignments.iter_mut().for_each(|it| { it.remove(&instr); });
-    }
-    final_assignments.into_iter().map(|instr| instr.unwrap()).collect()
+    let mut final_assignments = find_unique_matching(possible_assignments).unwrap();
+    final_assignments.into_iter().map(|idx| ALL_INSTRUCTIONS[idx]).collect()
 }
 
 fn parse_input() -> (Vec<Example>, Vec<Operation>) {

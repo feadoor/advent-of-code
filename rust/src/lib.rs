@@ -3,6 +3,7 @@ pub mod dfs;
 pub mod grid;
 pub mod intcode;
 pub mod linked_list;
+pub mod matching;
 pub mod math;
 pub mod more_itertools;
 pub mod knot_hash;

@@ -1,9 +1,5 @@
 use std::time::Instant;
 
-fn parse_input() -> Vec<usize> {
-    include_str!("../../../../inputs/2020/15.txt").split(',').map(|s| s.trim().parse().unwrap()).collect()
-}
-
 fn nth_number(starting_nums: &[usize], n: usize) -> usize {
     assert!(starting_nums.len() > 0);
     let (mut last, mut game) = (0, vec![None; n]);
@@ -16,6 +12,10 @@ fn nth_number(starting_nums: &[usize], n: usize) -> usize {
         last = next;
     }
     last
+}
+
+fn parse_input() -> Vec<usize> {
+    include_str!("../../../../inputs/2020/15.txt").split(',').map(|s| s.trim().parse().unwrap()).collect()
 }
 
 fn part1(starting_nums: &[usize]) -> usize {
